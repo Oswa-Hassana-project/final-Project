@@ -1,26 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../shared/components/qurannames.dart';
+import '../../shared/components/qurannames.dart'; // Adjust import paths as necessary
 import '../../shared/cubit/quran_cubit.dart';
 import '../../shared/cubit/quran_state.dart';
 import '../../shared/styles/response.dart';
-import 'QuranDetails.dart';
+import 'quranDetails.dart'; // Assuming QuranDetailsPage is defined in 'quranDetails.dart'
 
 class Quransurahs extends StatefulWidget {
-  const Quransurahs({super.key});
+  const Quransurahs({Key? key}) : super(key: key);
 
   @override
-  State<Quransurahs> createState() => _QuransurahsState();
+  _QuransurahsState createState() => _QuransurahsState();
 }
 
 class _QuransurahsState extends State<Quransurahs> {
+  @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final cubit = context.read<QuranCubit>();
-      cubit.fetchQuran();
+    // Fetch Quran data on initial build
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      context.read<QuranCubit>().fetchQuran();
     });
   }
 
@@ -31,12 +30,12 @@ class _QuransurahsState extends State<Quransurahs> {
       body: BlocBuilder<QuranCubit, quranState>(
         builder: (context, state) {
           if (state is InitQuranState || state is LoadingQuranState) {
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(),
             );
           } else if (state is ResponseQuranState) {
             final qurans = state.qurans;
-            // final qurans_en = state.qurans_en;
+
             return Stack(
               children: [
                 Padding(
@@ -61,7 +60,7 @@ class _QuransurahsState extends State<Quransurahs> {
                                 children: [
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -109,80 +108,88 @@ class _QuransurahsState extends State<Quransurahs> {
                           ),
                         ),
                         ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: qurans.length,
-                            itemBuilder: (context, index) {
-                              final quran = qurans[index];
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => QuranDetailsPage(
-                                          quran: quran,
-                                          surahtype: quran.revelationType,
-                                          surahname: quran.englishName,
-
-                                          // quran_en: quran,
-                                        ),
-                                      ));
-                                },
-                                child: Container(
-                                  child: quranName(
-                                    surahname: quran.name,
-                                    surahnameenglishtranslation:
-                                        quran.englishNameTranslation,
-                                    surahnameenglish: quran.englishName,
-                                    ayahsNumber: quran.ayahsNumber.toString(),
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: qurans.length,
+                          itemBuilder: (context, index) {
+                            final quran = qurans[index];
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => QuranDetailsPage(
+                                      quran: quran,
+                                      surahtype: quran.revelationType,
+                                      surahname: quran.englishName,
+                                    ),
                                   ),
+                                );
+                              },
+                              child: Container(
+                                child: quranName(
+                                  surahname: quran.name,
+                                  surahnameenglishtranslation:
+                                  quran.englishNameTranslation,
+                                  surahnameenglish: quran.englishName,
+                                  ayahsNumber: quran.ayahsNumber.toString(),
                                 ),
-                              );
-                            }),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
                 ),
-                Container(
-                  height: heightR(120, context),
-                  width: widthR(393, context),
-                  decoration: BoxDecoration(
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: heightR(120, context),
+                    decoration: BoxDecoration(
                       color: Color(0xFF16A896),
                       borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(30),
-                      )),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: heightR(49.2, context),
-                        left: widthR(20, context),
-                        right: widthR(20, context)),
-                    child: Row(
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: widthR(20, context),
+                      ),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(Icons.arrow_back_ios_outlined)),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(Icons.arrow_back_ios_outlined),
+                          ),
                           Text(
                             "Qur'an",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: sizeR(24, context),
-                                fontWeight: FontWeight.w700),
+                              color: Colors.white,
+                              fontSize: sizeR(24, context),
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                           Icon(Icons.search),
-                        ]),
+                        ],
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             );
+          } else {
+            return Center(
+              child: Text(
+                state.toString(),
+              ),
+            );
           }
-          return Center(
-            child: Text(
-              state.toString(),
-            ),
-          );
         },
       ),
     );

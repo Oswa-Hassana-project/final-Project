@@ -43,7 +43,7 @@ class _Forget_passwordState extends State<Forget_password> {
                   width: widthR(217, context),
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/images/forgetpassword.png")),
+                        image: AssetImage("assets/image/forgetpassword.png")),
                   ),
                 ),
                 SizedBox(
@@ -81,7 +81,7 @@ class _Forget_passwordState extends State<Forget_password> {
                             });
                             var response = await httpClient.post(
                               Uri.parse(
-                                'https://uswahasana.ddns.net/account/ForgetPassword',
+                                'https://192.168.1.100:3000/account/ForgetPassword',
                               ),
                               headers: {
                                 'Content-Type': 'application/json',

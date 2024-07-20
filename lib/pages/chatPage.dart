@@ -59,16 +59,15 @@ class _ChatScreenState extends State<ChatScreen> {
         //       //]
         //     }));
         try {
-          var requestBody = jsonEncode({
-            'question': text
-          });
+          var requestBody = jsonEncode({'question': text});
           var response = await httpClient.post(
             Uri.parse(
-              'https://uswahasana.ddns.net/chat/$chatbotType',
+              'https://192.168.1.100:3000/chat/$chatbotType',
             ),
             headers: {
               'Content-Type': 'application/json',
-              'USKSCH': 'yXccy2jyLA8jCSzoo37ma6EWnk9V8E4lGubVBZs5vYB1vvBqgxcDfQpGRWmVUirX1UjdkdQoujqnERqSuJClugUCsi77'
+              'USKSCH':
+                  'yXccy2jyLA8jCSzoo37ma6EWnk9V8E4lGubVBZs5vYB1vvBqgxcDfQpGRWmVUirX1UjdkdQoujqnERqSuJClugUCsi77'
             },
             body: requestBody,
           );
@@ -80,12 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
             setState(() {
               isTyping = false;
               msgs.insert(
-                  0,
-                  Message(
-                      false,
-                      json["response"]
-                          .toString()
-                          .trimLeft()));
+                  0, Message(false, json["response"].toString().trimLeft()));
             });
             scrollController.animateTo(0.0,
                 duration: const Duration(seconds: 1), curve: Curves.easeOut);
@@ -104,145 +98,165 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-          children: [
-            Container(
-              color: Colors.grey.shade300,
-              child: Column(
-                textDirection: TextDirection.rtl,
-                children: [
-                   SizedBox(
-                    height: heightR(80, context),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        controller: scrollController,
-                        itemCount: msgs.length,
-                        shrinkWrap: true,
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              child: isTyping && index == 0
-                                  ? Column(
-                                children: [
-                                  BubbleNormal(
-                                    text: msgs[0].msg,
-                                    isSender: true,
-                                    color: Colors.blue.shade100,
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 16, top: 4),
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text("Typing...")),
+        children: [
+          Container(
+            color: Colors.grey.shade300,
+            child: Column(
+              textDirection: TextDirection.rtl,
+              children: [
+                SizedBox(
+                  height: heightR(80, context),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: msgs.length,
+                      shrinkWrap: true,
+                      reverse: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: isTyping && index == 0
+                                ? Column(
+                                    children: [
+                                      BubbleNormal(
+                                        text: msgs[0].msg,
+                                        isSender: true,
+                                        color: Colors.blue.shade100,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 16, top: 4),
+                                        child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text("Typing...")),
+                                      )
+                                    ],
                                   )
-                                ],
-                              )
-                                  : BubbleNormal(
-                                text: msgs[index].msg,
-                                isSender: msgs[index].isSender,
-                                color: msgs[index].isSender
-                                    ? Colors.blue.shade100
-                                    : Colors.grey.shade200,
-                              ));
-                        }),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: TextField(
-                                controller: _controller,
-                                textCapitalization: TextCapitalization.sentences,
-                                onSubmitted: (value) {
-                                  sendMsg();
-                                },
-                                textInputAction: TextInputAction.send,
-                                showCursor: true,
-
-                                decoration:  InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Chat by $chatbotType'),
-                              ),
+                                : BubbleNormal(
+                                    text: msgs[index].msg,
+                                    isSender: msgs[index].isSender,
+                                    color: msgs[index].isSender
+                                        ? Colors.blue.shade100
+                                        : Colors.grey.shade200,
+                                  ));
+                      }),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: TextField(
+                              controller: _controller,
+                              textCapitalization: TextCapitalization.sentences,
+                              onSubmitted: (value) {
+                                sendMsg();
+                              },
+                              textInputAction: TextInputAction.send,
+                              showCursor: true,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Chat by $chatbotType'),
                             ),
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          sendMsg();
-                        },
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              color: Color(0xff13a795),
-                              borderRadius: BorderRadius.circular(30)),
-                          child: const Icon(
-                            Icons.send,
-                            color: Colors.white,
-                          ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        sendMsg();
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: Color(0xff13a795),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(
+                          Icons.send,
+                          color: Colors.white,
                         ),
                       ),
-                      const SizedBox(
-                        width: 8,
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    )
+                  ],
+                ),
+              ],
             ),
-            Container(
-              height: heightR(100, context),
-              width: double.infinity,
-              decoration: BoxDecoration(color: Color(0xFF16A896),
-                  borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(30))),
-              child: Padding(
-                padding: EdgeInsets.only(top: heightR(49.2, context),
-                    left: widthR(20, context),
-                    right: widthR(20, context)),
-                child: Row(
-      
-                    children: [
-                      InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Icon(CupertinoIcons.back, color: Colors.white,)),
-                      SizedBox(width: widthR(97, context),),
-                      Text("ChatBot", style: TextStyle(color: Colors.white,
-                          fontSize: sizeR(24, context),
-                          fontWeight: FontWeight.w700),),
-                      Spacer(),
-                      IconButton(onPressed: () {
-                        _askedToLead();
-                      }, icon: Image(image: AssetImage("assets/icons/Chatbot Chat Message.png")),)
-                    ]),
-              ),
+          ),
+          Container(
+            height: heightR(100, context),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Color(0xFF16A896),
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(30))),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: heightR(49.2, context),
+                  left: widthR(20, context),
+                  right: widthR(20, context)),
+              child: Row(children: [
+                InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(
+                      CupertinoIcons.back,
+                      color: Colors.white,
+                    )),
+                SizedBox(
+                  width: widthR(97, context),
+                ),
+                Text(
+                  "ChatBot",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: sizeR(24, context),
+                      fontWeight: FontWeight.w700),
+                ),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    _askedToLead();
+                  },
+                  icon: Image(
+                      image:
+                          AssetImage("assets/icons/Chatbot Chat Message.png")),
+                )
+              ]),
             ),
-          ],
-      
-        ),
+          ),
+        ],
+      ),
     );
   }
 
-  Future openDialog() =>
-      showConfirmationDialog(context: context,title: 'Choose ChatBot type',actions: [AlertDialogAction(key: 0, label: 'Gemine'),
-        AlertDialogAction(key: 1, label: 'Match',isDefaultAction: true,isDestructiveAction: true),
-        AlertDialogAction(key: 2, label: 'AceGpt')
-      ]
-        , );
+  Future openDialog() => showConfirmationDialog(
+        context: context,
+        title: 'Choose ChatBot type',
+        actions: [
+          AlertDialogAction(key: 0, label: 'Gemine'),
+          AlertDialogAction(
+              key: 1,
+              label: 'Match',
+              isDefaultAction: true,
+              isDestructiveAction: true),
+          AlertDialogAction(key: 2, label: 'AceGpt')
+        ],
+      );
 
   Future<void> _askedToLead() async {
-     await showDialog(
+    await showDialog(
         context: context,
         builder: (BuildContext context) {
           //print("\n\n\n\n$chatbotType\n");
@@ -254,7 +268,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   setState(() {
                     chatbotType = 'match';
                   });
-                  Navigator.pop(context); },
+                  Navigator.pop(context);
+                },
                 child: const Text('Match'),
               ),
               SimpleDialogOption(
@@ -262,7 +277,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   setState(() {
                     chatbotType = 'gemini';
                   });
-                  Navigator.pop(context); },
+                  Navigator.pop(context);
+                },
                 child: const Text('Gemini'),
               ),
               SimpleDialogOption(
@@ -270,15 +286,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   setState(() {
                     chatbotType = 'localbot';
                   });
-                  Navigator.pop(context); },
+                  Navigator.pop(context);
+                },
                 child: const Text('AceGpt'),
               ),
-
             ],
           );
-        }
-    );
-
+        });
   }
-
 }

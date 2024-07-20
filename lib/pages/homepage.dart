@@ -15,6 +15,8 @@ import 'package:finalproject/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'Quran/mainquran.dart';
+
 class homepage extends StatefulWidget {
   const homepage({super.key});
   @override
@@ -90,8 +92,7 @@ class _homepageState extends State<homepage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              profile(),
+                                          builder: (context) => profile(),
                                         ));
                                   },
                                   icon: Icon(
@@ -195,8 +196,11 @@ class _homepageState extends State<homepage> {
                                           'ChatBot',
                                           ChatScreen(),
                                           context),
-                                      features('assets/icons/mos7af2.png',
-                                          'القرأن الكريم', QuranPage1(), context),
+                                      features(
+                                          'assets/icons/mos7af2.png',
+                                          'القرأن الكريم',
+                                          QuranPage1(),
+                                          context),
                                       features(
                                           'assets/icons/img-YKRytuAHw3Rowfv_1672400372 1.png',
                                           'القبلة',

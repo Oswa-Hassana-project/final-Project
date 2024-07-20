@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'members.dart';
+
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
 
@@ -18,7 +20,6 @@ class _ContactUsState extends State<ContactUs> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -43,7 +44,17 @@ class _ContactUsState extends State<ContactUs> {
                       "أسوه حسنه هو تطبيق إسلامي يجمع بين العديد من الخدمات الدينية الأساسية مثل القرآن الكريم بتلاوات متنوعة، الأذكار، ومواقيت الصلاة. يتميز التطبيق بتصميم مريح وجذاب يسهل على المستخدمين الوصول إلى المحتوى بسلاسة.\n\n الميزة البارزة في أسوه حسنه هي الشات بوت المتقدم، الذي يعتمد على تقنيات الذكاء الاصطناعي ومعالجة اللغة الطبيعية لتقديم إجابات دقيقة ومفيدة عن الأسئلة الدينية. يتميز الشات بوت بقدرته على استخدام معلومات دينية موثوقة من الأزهر الشريف، مما يجعله مرشداً موثوقاً ومفيداً للمستخدمين في رحلتهم الدينية والتعليمية.\n\n بفضل هذه الميزات، يعتبر أسوه حسنه خياراً مثالياً لأولئك الذين يبحثون عن تطبيق إسلامي شامل يلبي احتياجاتهم الدينية بكفاءة وسهولة.\n"),
               icon: Iconsax.information_outline,
               Title: "what is Uswah Hasanah",
-              SubTitle: '')
+              SubTitle: ''),
+          ContactInformation(
+              click: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Members(),
+                    ),
+                  ),
+              icon: Icons.person,
+              Title: "Team",
+              SubTitle: "The Members of the Developers")
         ],
       ),
     );
@@ -77,6 +88,4 @@ class _ContactUsState extends State<ContactUs> {
       throw Exception('Could not launch $email');
     }
   }
-
-
 }

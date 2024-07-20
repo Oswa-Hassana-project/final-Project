@@ -51,7 +51,10 @@ class _PremiumState extends State<Premium> {
                               fontSize: sizeR(24, context),
                               fontWeight: FontWeight.w700),
                         ),
-                        Icon(Icons.search),
+                        Icon(
+                          Icons.search,
+                          color: maincolor,
+                        ),
                       ]),
                 ),
               ),
@@ -60,75 +63,36 @@ class _PremiumState extends State<Premium> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    Row(
+                    Column(
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: 225,
-                            decoration: BoxDecoration(
-                                color: maincolor,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 0, vertical: 10),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    '10 ردود باليوم  ',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    textDirection: TextDirection.rtl,
-                                  ),
-                                  CheckboxListTile(
-                                    title: Text(
-                                      " \$1",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    value: option1Checked,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        option1Checked = newValue;
-                                        if (newValue == true) {
-                                          option2Checked = false;
-                                          choosed_option = " \$1";
-                                        }
-                                      });
-                                    },
-                                    controlAffinity: ListTileControlAffinity
-                                        .leading, //  <-- leading Checkbox
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 225,
-                            decoration: BoxDecoration(
+                        Container(
+                          height: 110,
+                          decoration: BoxDecoration(
                               color: maincolor,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 10),
                             child: Column(
                               children: [
                                 Text(
-                                  'عدد لا نهائي من الردود  ',
+                                  '25 ردود باليوم  ',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                   textDirection: TextDirection.rtl,
                                 ),
                                 CheckboxListTile(
-                                  title: Text("Option 2 - \$5"),
-                                  value: option2Checked,
+                                  title: Text(
+                                    " \$1",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  value: option1Checked,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      option2Checked = newValue;
+                                      option1Checked = newValue;
                                       if (newValue == true) {
-                                        option1Checked = false;
-                                        choosed_option = " \$5";
+                                        option2Checked = false;
+                                        choosed_option = " \$1";
                                       }
                                     });
                                   },
@@ -137,6 +101,46 @@ class _PremiumState extends State<Premium> {
                                 ),
                               ],
                             ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          height: 110,
+                          decoration: BoxDecoration(
+                            color: maincolor,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                'عدد لا نهائي من الردود  ',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                                textDirection: TextDirection.rtl,
+                              ),
+                              CheckboxListTile(
+                                title: Text(
+                                  "\$5",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                value: option2Checked,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    option2Checked = newValue;
+                                    if (newValue == true) {
+                                      option1Checked = false;
+                                      choosed_option = " \$5";
+                                    }
+                                  });
+                                },
+                                controlAffinity: ListTileControlAffinity
+                                    .leading, //  <-- leading Checkbox
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -150,15 +154,12 @@ class _PremiumState extends State<Premium> {
                           onPressed: () {
                             print(choosed_option);
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PaymentMethods(
-
-                                    value: choosed_option,
-                                  ),
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentMethods(
+                                  value: choosed_option,
                                 ),
-
-
+                              ),
                             );
                           },
                           child: Text('Continue To Pay')),

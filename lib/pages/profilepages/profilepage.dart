@@ -4,6 +4,8 @@ import 'package:finalproject/pages/profilepages/_Premium.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/styles/response.dart';
+import '../promocodes.dart';
+import '../settings_page.dart';
 
 class profile extends StatelessWidget {
   @override
@@ -29,20 +31,24 @@ class profile extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Settings",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios_outlined,
+                              color: Colors.white,
+                            )),
                         Spacer(),
-                        Text(
-                          "Profile",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 45),
+                          child: Text(
+                            "Profile",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         Spacer(),
@@ -104,10 +110,12 @@ class profile extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     InkWell(
-                                      onTap:(){
+                                      onTap: () {
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context)=> EditProfilePage()));
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditProfilePage()));
                                       },
                                       child: Text(
                                         'Personal information ',
@@ -141,12 +149,14 @@ class profile extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     InkWell(
-                                  onTap: (){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context)=> Premium()));
-                                  }
-                                  ,child: Text(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Premium()));
+                                      },
+                                      child: Text(
                                         'Premium  ',
                                         style: TextStyle(
                                           fontSize: 15,
@@ -177,16 +187,26 @@ class profile extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'promodocodes ',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Promocodes(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'promodocodes ',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                     Text(
-                                      'one promo code is found ',
+                                      'no promo code is found ',
                                       style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w200,
@@ -207,12 +227,23 @@ class profile extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'settinges  ',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black,
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SettingsPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'settinges  ',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                     Text(
@@ -247,6 +278,7 @@ class profile extends StatelessWidget {
                   CircleAvatar(
                     radius: 100,
                     backgroundColor: Colors.white,
+                    backgroundImage: AssetImage('assets/image/me2.jpeg'),
                   ),
                 ],
               ),

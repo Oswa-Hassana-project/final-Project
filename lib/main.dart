@@ -1,18 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:finalproject/Layout/nav_page.dart';
 import 'package:finalproject/chatbot/chatBot.dart';
+import 'package:finalproject/pages/Quran/mainquran.dart';
 import 'package:finalproject/pages/azkaePage.dart';
 import 'package:finalproject/pages/chatPage.dart';
 import 'package:finalproject/pages/edit_profile.dart';
 import 'package:finalproject/pages/elqepla_page.dart';
 import 'package:finalproject/pages/homepage.dart';
+import 'package:finalproject/pages/loginpage.dart';
 import 'package:finalproject/pages/notificationsPage.dart';
 import 'package:finalproject/pages/sign_up.dart';
 import 'package:finalproject/services/BlocObserver.dart';
 import 'package:finalproject/services/background_work_service.dart';
 import 'package:finalproject/services/notification_service.dart';
+import 'package:finalproject/shared/cubit/quran_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'model/quran_repository.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -43,7 +49,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xff13a795),
       ),
       debugShowCheckedModeBanner: false,
-      home: homepage(),
+      home: NavPage(),
       routes: {
         'azkar_page': (context) => AzkarPage(), // Define the route
       },

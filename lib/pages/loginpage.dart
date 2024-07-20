@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:finalproject/Layout/nav_page.dart';
 import 'package:finalproject/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class _loginPageState extends State<loginPage> {
           child: Column(
             children: [
               Image(
-                image: AssetImage("assets/logo/oswah.png"),
+                image: AssetImage("assets/logo/اسوه حسنه1.png"),
                 width: 110,
                 height: 110,
               ),
@@ -105,12 +106,12 @@ class _loginPageState extends State<loginPage> {
                           });
                           var response = await httpClient.post(
                             Uri.parse(
-                              'https://uswahasana.ddns.net/account/login',
+                              'https://192.168.1.100:3000/account/login',
                             ),
                             headers: {
                               'Content-Type': 'application/json',
                               'USKSCH':
-                                  'yXccy2jyLA8jCSzoo37ma6EWnk9V8E4lGubVBZs5vYB1vvBqgxcDfQpGRWmVUirX1UjdkdQoujqnERqSuJClugUCsi77'
+                              'yXccy2jyLA8jCSzoo37ma6EWnk9V8E4lGubVBZs5vYB1vvBqgxcDfQpGRWmVUirX1UjdkdQoujqnERqSuJClugUCsi77'
                             },
                             body: requestBody,
                           );
@@ -118,11 +119,11 @@ class _loginPageState extends State<loginPage> {
                           print(response.body);
 
                           Map<String, dynamic> data =
-                              json.decode(response.body);
+                          json.decode(response.body);
                           if (response.statusCode == 200) {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (_) => QuranPage1()),
+                              MaterialPageRoute(builder: (_) => NavPage()),
                             );
                             print('Success');
                           } else if (response.statusCode == 400) {
