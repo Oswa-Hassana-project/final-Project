@@ -9,8 +9,7 @@ This project is a starting point for a Flutter application.
 
 
 
-![1](https://github.com/user-attachments/assets/2b5b7cb4-4ab0-4605-b3de-07149e1dc064)
-![24](https://github.com/user-attachments/assets/fb085476-fedb-45c8-b4fc-ff18611a61a2)
+![1](https://github.com/user-attachments/assets/2b5b7cb4-4ab0-4605-b3de-07149e1dc064) ![24](https://github.com/user-attachments/assets/fb085476-fedb-45c8-b4fc-ff18611a61a2)
 ![53](https://github.com/user-attachments/assets/47579e70-702b-4ac1-92c3-814728755daa)
 ![33](https://github.com/user-attachments/assets/becdc822-9a5f-4f07-86e0-78eee93d8497)
 ![34](https://github.com/user-attachments/assets/271e7c51-3d93-44cc-a4f2-61a64a055c50)
